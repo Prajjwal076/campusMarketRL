@@ -1,6 +1,9 @@
 node_modules
 .next
 out
+demo/frontend/node_modules
+demo/frontend/.next
+demo/frontend/out
 __pycache__
 *.pyc
 .git

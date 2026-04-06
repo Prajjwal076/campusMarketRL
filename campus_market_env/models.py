@@ -6,7 +6,7 @@ from typing import TypeAlias
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from campus_market_env.utils.enums import PhaseEnum, ShopTypeEnum
+from campus_market_env.enums import PhaseEnum, ShopTypeEnum
 
 InfoValue: TypeAlias = str | int | float | bool
 
@@ -53,6 +53,10 @@ class CampusMarketObservation(BaseModel):
     market_sentiment: float = Field(ge=0.0, le=1.0)
     competitor_pressure: float = Field(ge=0.0, le=1.0)
     trend_factor: float = Field(ge=0.0)
+    reward: float = 0.0
+    done: bool = False
+    info: dict[str, InfoValue] = Field(default_factory=dict)
+    metadata: dict[str, InfoValue] = Field(default_factory=dict)
 
     @field_validator("phase")
     @classmethod
@@ -94,6 +98,15 @@ class CampusMarketState(BaseModel):
                 f"current_phase must be one of: {sorted(_enum_values(PhaseEnum))}",
             )
         return value
+
+
+class CampusMarketSessionState(BaseModel):
+    """Process-local session state for the running environment server."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    episode_id: str = Field(min_length=1)
+    step_count: int = Field(default=0, ge=0)
 
 
 class CampusMarketStepResult(BaseModel):

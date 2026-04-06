@@ -11,7 +11,7 @@ from pydantic import BaseModel, ConfigDict, ValidationError
 
 from campus_market_env.client import CampusMarketEnvClient
 from campus_market_env.models import CampusMarketAction, CampusMarketStepResult
-from campus_market_env.utils.enums import ShopTypeEnum
+from campus_market_env.enums import ShopTypeEnum
 
 SAFE_DEFAULT_ACTION: Final[dict[str, float | int | str]] = {
     "price_adjustment": 0.0,
@@ -111,7 +111,7 @@ def choose_action(
 def main() -> None:
     load_env_file(Path(".env"))
     model_name = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-    base_url = os.environ.get("CAMPUS_MARKET_ENV_BASE_URL", "http://localhost:8080/api")
+    base_url = os.environ.get("CAMPUS_MARKET_ENV_BASE_URL", "http://localhost:7860/api")
     llm_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
     env = CampusMarketEnvClient(base_url=base_url)
 

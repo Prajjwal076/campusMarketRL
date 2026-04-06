@@ -53,7 +53,7 @@ from campus_market_env.server.competitor_model import (
 )
 from campus_market_env.server.student_model import StudentCluster, generate_student_clusters
 from campus_market_env.server.trend_model import get_trend, get_trend_multiplier
-from campus_market_env.utils.enums import PhaseEnum, ShopTypeEnum, TrendTypeEnum
+from campus_market_env.enums import PhaseEnum, ShopTypeEnum, TrendTypeEnum
 
 InfoValue = str | int | float | bool
 

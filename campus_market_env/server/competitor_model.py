@@ -12,7 +12,7 @@ from campus_market_env.config import (
     COMPETITOR_MARKETING_RANGE,
     COMPETITOR_PRICING_RANGE,
 )
-from campus_market_env.utils.enums import ShopTypeEnum
+from campus_market_env.enums import ShopTypeEnum
 
 
 class CompetitorShop(BaseModel):

@@ -13,6 +13,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from campus_market_env.models import (
     CampusMarketAction,
+    CampusMarketSessionState,
     CampusMarketState,
     CampusMarketStepResult,
 )
@@ -28,7 +29,8 @@ class ResetRequest(BaseModel):
 
 
 class StateResponse(BaseModel):
-    state: CampusMarketState
+    state: CampusMarketSessionState
+    market_state: CampusMarketState
 
 
 class HealthResponse(BaseModel):
@@ -51,7 +53,7 @@ def create_app(environment: CampusMarketEnv | None = None) -> FastAPI:
     app = FastAPI(
         title="Campus Market Environment",
         version="0.1.0",
-        description="OpenEnv-compatible campus market reinforcement learning environment.",
+        description="Campus market reinforcement learning environment service.",
     )
     api = APIRouter(prefix="/api")
     env = environment or CampusMarketEnv()
@@ -66,35 +68,25 @@ def create_app(environment: CampusMarketEnv | None = None) -> FastAPI:
     def reset_environment(payload: ResetRequest) -> CampusMarketStepResult:
         with lock:
             observation = env.reset(seed=payload.seed)
-            current_state = env.state
-        info: dict[str, InfoValue] = {
-            "episode_id": current_state.episode_id,
-            "executed_day": current_state.current_day,
-            "executed_phase": current_state.current_phase,
-            "next_day": current_state.current_day,
-            "next_phase": current_state.current_phase,
-            "total_steps": current_state.total_steps,
-            "done": current_state.done,
-        }
         return CampusMarketStepResult(
             observation=observation,
-            reward=0.0,
-            done=False,
-            info=info,
+            reward=observation.reward,
+            done=observation.done,
+            info=observation.info,
         )
 
     @api.post("/step", response_model=CampusMarketStepResult)
     def step_environment(action: CampusMarketAction) -> CampusMarketStepResult:
         try:
             with lock:
-                observation, reward, done, info = env.step(action)
+                observation = env.step(action)
         except RuntimeError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         return CampusMarketStepResult(
             observation=observation,
-            reward=reward,
-            done=done,
-            info=info,
+            reward=observation.reward,
+            done=observation.done,
+            info=observation.info,
         )
 
     @api.get("/state", response_model=StateResponse)
@@ -102,9 +94,10 @@ def create_app(environment: CampusMarketEnv | None = None) -> FastAPI:
         try:
             with lock:
                 current_state = env.state
+                current_market_state = env.market_state
         except RuntimeError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
-        return StateResponse(state=current_state)
+        return StateResponse(state=current_state, market_state=current_market_state)
 
     app.include_router(api)
     app.mount(
@@ -117,7 +110,7 @@ def create_app(environment: CampusMarketEnv | None = None) -> FastAPI:
     def serve_spa(full_path: str) -> FileResponse:
         index_file = static_dir / "index.html"
         if not index_file.exists():
-            raise HTTPException(status_code=404, detail="Frontend build not found.")
+            raise HTTPException(status_code=404, detail="Landing page not found.")
         return FileResponse(index_file)
 
     return app

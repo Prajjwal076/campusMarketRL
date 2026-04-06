@@ -10,6 +10,7 @@ from campus_market_env.config import (
 from campus_market_env.models import (
     CampusMarketAction,
     CampusMarketObservation,
+    CampusMarketSessionState,
     CampusMarketState,
     CampusMarketStepResult,
 )
@@ -20,6 +21,7 @@ __all__ = [
     "CampusMarketEnv",
     "CampusMarketEnvClient",
     "CampusMarketObservation",
+    "CampusMarketSessionState",
     "CampusMarketState",
     "CampusMarketStepResult",
     "DEFAULT_BUDGET",

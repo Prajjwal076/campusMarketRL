@@ -59,3 +59,23 @@ STOCKOUT_REWARD_PENALTY: Final[float] = 20.0
 REWARD_CLAMP_MIN: Final[float] = -50.0
 REWARD_CLAMP_MAX: Final[float] = 50.0
 REWARD_SMOOTHING_WEIGHT: Final[float] = 0.82
+
+GYM_MARKETING_SPEND_MAX: Final[float] = 2_000.0
+GYM_RESTOCK_AMOUNT_MAX: Final[int] = 200
+GYM_PRODUCT_FOCUS_COUNT: Final[int] = 4
+GYM_REVENUE_MAX: Final[float] = 50_000.0
+GYM_OBSERVATION_VECTOR_SIZE: Final[int] = 11
+
+OBSERVATION_FEATURE_NAMES: Final[tuple[str, ...]] = (
+    "day",
+    "phase_index",
+    "shop_traffic",
+    "conversion_rate",
+    "revenue",
+    "customer_satisfaction",
+    "inventory_level",
+    "monthly_budget",
+    "awareness",
+    "market_sentiment",
+    "competitor_pressure",
+)

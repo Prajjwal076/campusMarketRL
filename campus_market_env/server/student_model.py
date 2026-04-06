@@ -17,7 +17,7 @@ from campus_market_env.config import (
     MID_CLUSTER_SIZE_RANGE,
     MIN_STUDENT_CLUSTERS,
 )
-from campus_market_env.utils.enums import ShopTypeEnum, TrendTypeEnum
+from campus_market_env.enums import ShopTypeEnum, TrendTypeEnum
 
 
 class StudentCluster(BaseModel):

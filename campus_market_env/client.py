@@ -5,14 +5,13 @@ from __future__ import annotations
 import json
 from urllib import error, request
 
-from campus_market_env._compat import EnvClient
 from campus_market_env.models import CampusMarketAction, CampusMarketStepResult
 
 
-class CampusMarketEnvClient(EnvClient):
+class CampusMarketEnvClient:
     """Thin HTTP client for the FastAPI environment server."""
 
-    def __init__(self, base_url: str = "http://127.0.0.1:8080/api", timeout: float = 5.0) -> None:
+    def __init__(self, base_url: str = "http://127.0.0.1:7860/api", timeout: float = 5.0) -> None:
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
 
