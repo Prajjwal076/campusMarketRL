@@ -13,7 +13,7 @@
 - `campus_market_env/server/`: FastAPI server and simulation runtime
 - `static/`: landing page served at `/`
 - `docs/`: project documentation
-- repo root scripts: `run_agent.py`, `test_env.py`, `inference.py`
+- repo root scripts: `main.py`, `test_env.py`, `inference.py`
 
 ## Common commands
 

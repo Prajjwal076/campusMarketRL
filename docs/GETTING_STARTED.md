@@ -28,7 +28,10 @@ curl http://localhost:7860/api/health
 
 ```bash
 python -m venv .venv
-. .venv/bin/activate
+# Linux/macOS
+source .venv/bin/activate
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -37,4 +40,4 @@ pip install -e .
 
 - `python main.py`
 - `python test_env.py`
-- `python run_agent.py`
+- `python inference.py`

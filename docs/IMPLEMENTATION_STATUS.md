@@ -2,7 +2,7 @@
 
 ## Current architecture
 
-- `campus_market_env/` contains the reusable environment package, simulation logic, HTTP client, and Gym wrapper.
+- `campus_market_env/` contains the reusable environment package, simulation logic, and HTTP client.
 - `campus_market_env/server/` contains the FastAPI server and the core simulation runtime.
 - `static/` contains the landing page served from the root path.
 - root scripts contain lightweight usage and smoke-test examples.
@@ -17,5 +17,4 @@
 ## Supported interfaces
 
 - HTTP environment API
-- Gymnasium wrapper
 - HTTP client for remote interaction

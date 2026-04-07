@@ -25,28 +25,27 @@ It runs as a FastAPI app with:
 
 ```text
 .
-├── campus_market_env/
-│   ├── client.py
-│   ├── config.py
-│   ├── enums.py
-│   ├── gym_env.py
-│   ├── models.py
-│   ├── openenv.yaml
-│   └── server/
-│       ├── app.py
-│       ├── competitor_model.py
-│       ├── engine.py
-│       ├── environment.py
-│       ├── state_manager.py
-│       ├── student_model.py
-│       └── trend_model.py
-├── docs/
-├── static/
-├── Dockerfile
-├── main.py
-├── requirements.txt
-├── run_agent.py
-└── test_env.py
+|-- campus_market_env/
+|   |-- client.py
+|   |-- config.py
+|   |-- enums.py
+|   |-- models.py
+|   |-- openenv.yaml
+|   `-- server/
+|       |-- app.py
+|       |-- competitor_model.py
+|       |-- engine.py
+|       |-- environment.py
+|       |-- state_manager.py
+|       |-- student_model.py
+|       `-- trend_model.py
+|-- docs/
+|-- static/
+|-- Dockerfile
+|-- inference.py
+|-- main.py
+|-- requirements.txt
+`-- test_env.py
 ```
 
 ## Local Run
